@@ -214,28 +214,15 @@
 		  <div class="container">
 			  <div class = "row">
 				<div class = "col-md-12" style = "text-align:center;">
-					<h4 style = "text-transform: none; font-weight: 100;">Hello! You caught us before we are ready.</h4>
-					<h6 style = "text-transform: none; font-weight: 100;">We are working hard to put the finishing touches. Things are going well and it should be ready to help you with Facebook very soon. If you like us to send a reminder when we are ready, just put your email in below</h6>
-					<!-- Begin MailChimp Signup Form -->
-					<div id="mc_embed_signup">
-					<form action="//temporary.us16.list-manage.com/subscribe/post?u=1f7654e08b0a69c0858852aa7&amp;id=328475cb4e" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-						<div id="mc_embed_signup_scroll">
-						
-					<div class="mc-field-group">
-						<label for="mce-EMAIL">Email Address </label>
-						<input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL">
-					</div>
-						<div id="mce-responses" class="clear">
-							<div class="response" id="mce-error-response" style="display:none"></div>
-							<div class="response" id="mce-success-response" style="display:none"></div>
-						</div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
-						<div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_1f7654e08b0a69c0858852aa7_328475cb4e" tabindex="-1" value=""></div>
-						<div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
-						</div>
-					</form>
-					</div>
+					<h2 style = "text-transform: none; font-weight: 100;">Hello! You caught us before we are ready.</h2>
+					<h6 style = "text-transform: none; font-weight: 100; margin-top:100px;">We are working hard to put the finishing touches. Things are going well and it should be ready to help you with Facebook very soon. If you like us to send a reminder when we are ready, just put your email in below</h6>
+					<h4 style = "text-transform: none; font-weight: 100; margin-top:100px;" id = "thankyou">Thank You! We will notify you as soon as our product is ready!</h4>
+					<input type="email" name="firstname" placeholder="Your email" id = "email_input" style = "margin-top:100px;">
+					<br>
 
-					<!--End mc_embed_signup-->
+					<a href="#" class="btn btn-lg" id="subscribe_button" style = "margin-top:20px;">
+								Remind me
+					</a>					
 				</div>
 			  </div>
 		  </div>
@@ -279,38 +266,76 @@
 	<script>
 		$('#pricing_page').hide();
 		$('#subscribe_page').hide();
+		$('#thankyou').hide();
 		$('#pricing').click(function(){
 			$('#main_page').hide();
 			$('#pricing_page').show();
 			$('#subscribe_page').hide();
+			$('#thankyou').hide();
 		})
 		$('#home_button').click(function(){
 			$('#main_page').show();
 			$('#pricing_page').hide();
 			$('#subscribe_page').hide();
+			$('#thankyou').hide();
 		})
 		$('#subscribe_button').click(function(){
 			$('#subscribe_page').show();
 			$('#pricing_page').hide();
 			$('#main_page').hide();
+			$('#thankyou').hide();
 		})
 		$('#subscribe_button_small').click(function(){
 			$('#subscribe_page').show();
 			$('#pricing_page').hide();
 			$('#main_page').hide();
+			$('#thankyou').hide();
 		})
 		$('#subscribe_button_medium').click(function(){
 			$('#subscribe_page').show();
 			$('#pricing_page').hide();
 			$('#main_page').hide();
+			$('#thankyou').hide();
 		})
 		$('#subscribe_button_large').click(function(){
 			$('#subscribe_page').show();
 			$('#pricing_page').hide();
 			$('#main_page').hide();
+			$('#thankyou').hide();
 		})
 	</script>
 	
+	
+<script src="https://www.gstatic.com/firebasejs/4.3.0/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyADF8wHnegT29qbZL7qk2DGQYeG88zi4zQ",
+    authDomain: "landing-page-cae3e.firebaseapp.com",
+    databaseURL: "https://landing-page-cae3e.firebaseio.com",
+    projectId: "landing-page-cae3e",
+    storageBucket: "",
+    messagingSenderId: "47768679864"
+  };
+  firebase.initializeApp(config);
+  var database = firebase.database();
+  var ref = database.ref('emails');
+	$('#subscribe_button').click(function(){
+		var email = $('#email_input').val();
+		if(email != '' && validateEmail(email)){
+		  var data = {
+			email: email,
+		  }
+			ref.push(data);
+			$('#email_input').val('');
+			$('#thankyou').show();
+		}
+	})
+function validateEmail(email) {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+}
+</script>
   </body>
 
 </html>
